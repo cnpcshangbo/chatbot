@@ -1,6 +1,6 @@
 import nltk
 from nltk.chat.util import Chat, reflections
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 
 # Download necessary NLTK data
 nltk.download('punkt')
@@ -19,6 +19,10 @@ patterns = [
 chatbot = Chat(patterns, reflections)
 
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return send_from_directory('.', 'index.html')
 
 @app.route('/chat', methods=['POST'])
 def chat():
